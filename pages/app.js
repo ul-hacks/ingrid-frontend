@@ -1,11 +1,24 @@
 import Head from 'next/head';
-import { Container } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../styles/masterTheme';
-import Landing from '../components/website/Landing';
+import theme from '../styles/masterTheme'
+import App from '../components/app/Dashboard/index';
+import { Container } from '@material-ui/core';
 
 export default function Home() {
+  const user = {
+    name: 'Tony',
+    streak: 7,
+    badges: [1, 2, 3, 4],
+    extensions: [
+      {
+        name: 'Github',
+        category: 'tech',
+        weeklyActivity: 7,
+        totalActivity: 100,
+      },
+    ],
 
+  }
   return (
     <div>
       <Head>
@@ -17,7 +30,7 @@ export default function Home() {
       </Head>
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
-          <Landing />
+          <App user={user} />
         </Container>
       </ThemeProvider>
     </div>
