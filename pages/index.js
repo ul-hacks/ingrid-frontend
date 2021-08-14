@@ -1,16 +1,9 @@
 import Head from 'next/head';
-import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../styles/masterTheme';
-import App from './app/index';
-
-const useStyles = makeStyles((theme) => ({
-  checked: {
-    color: 'white'
-  },
-}));
+import App from '../components/app/Dashboard/index';
 
 export default function Home() {
-  const classes = useStyles(theme);
 
   return (
     <div>
