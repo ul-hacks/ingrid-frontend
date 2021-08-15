@@ -93,11 +93,11 @@ function Dashboard({ classes, user, setOpenModal }) {
         <Grid>
           <Paper className={classes.topBar}>
             <Grid container>
-              <Grid item xs={3} container alignItems="center">
+              <Grid item xs={6} md={3} container alignItems="center">
                 <img className={classes.fireEmoji} src={"/static/images/fire-emoji.png"} />
                 <span className={classes.boldNumber}>{streak}</span><Typography variant="body1">days</Typography>
               </Grid>
-              <Grid item xs={3} container alignItems="center">
+              <Grid item xs={6} md={3} container alignItems="center">
                 <span className={classes.boldNumber}>{badges.length}</span><Typography variant="body1">badges</Typography>
               </Grid>
             </Grid>
