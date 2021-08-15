@@ -26,25 +26,28 @@ function Landing({ classes }) {
 
 
   return (
-    <Grid container className={classNames(classes.container, classes.fullScreen)}>
-      <Grid item xs={12} md={6} container justifyContent="center" alignItems="center">
-        <img className={classes.image} src={'/static/images/landing-graphic.png'} />
-      </Grid>
-      <Grid item xs={12} md={6} container alignContent="center">
-        <Grid item xs={12}>
-          <Typography variant="h1">A new way to track education</Typography>
+    <>
+      <img src={'/static/images/ingrid-logo.png'} className={classes.logo} />
+      <Grid container className={classNames(classes.container, classes.fullScreen)}>
+        <Grid item xs={12} md={6} container justifyContent="center" alignItems="center" className={classes.imageC}>
+          <img className={classes.image} src={'/static/images/landing-graphic.png'} />
         </Grid>
-        {points.map((point) => (
+        <Grid item xs={12} md={6} container alignContent="center" className={classes.textC}> 
           <Grid item xs={12}>
-            <Typography variant="body1">• {point.text}</Typography>
+            <Typography variant="h1">A new way to track education</Typography>
           </Grid>
-        ))}
-        <Grid container alignItems="center" style={{ marginTop: '24px'}}>
-          <a href='/signup' className={classes.no_u} style={{ marginRight: '24px'}}><Button variant="contained" disableRipple>Sign Up</Button></a>
-          <a href='/signin' className={classes.no_u}><Button variant="outlined" disableRipple>Sign In</Button></a>
+          {points.map((point) => (
+            <Grid item xs={12}>
+              <Typography variant="body1">• {point.text}</Typography>
+            </Grid>
+          ))}
+          <Grid container alignItems="center" style={{ marginTop: '24px' }}>
+            <a href='/signup' className={classes.no_u} style={{ marginRight: '24px' }}><Button variant="contained" disableRipple>Sign Up</Button></a>
+            <a href='/signin' className={classes.no_u}><Button variant="outlined" disableRipple>Sign In</Button></a>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </>
   )
 }
 
