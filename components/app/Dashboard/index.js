@@ -74,7 +74,6 @@ function Dashboard({ classes, user, setOpenModal }) {
   const {
     name,
     streak,
-    badges,
     extensions,
   } = user;
 
@@ -96,9 +95,6 @@ function Dashboard({ classes, user, setOpenModal }) {
               <Grid item xs={6} md={3} container alignItems="center">
                 <img className={classes.fireEmoji} src={"/static/images/fire-emoji.png"} />
                 <span className={classes.boldNumber}>{streak}</span><Typography variant="body1">days</Typography>
-              </Grid>
-              <Grid item xs={6} md={3} container alignItems="center">
-                <span className={classes.boldNumber}>{badges.length}</span><Typography variant="body1">badges</Typography>
               </Grid>
             </Grid>
           </Paper>
@@ -142,8 +138,15 @@ function Dashboard({ classes, user, setOpenModal }) {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   setOpenModal: PropTypes.func.isRequired,
 }
 
+Dashboard.defaultProps = {
+  user: {
+    name: 'User',
+    streak: 0,
+    extensions: [],
+  }
+}
 export default withStyles(styles)(Dashboard);

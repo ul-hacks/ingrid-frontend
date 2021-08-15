@@ -41,6 +41,11 @@ const styles = (theme) => ({
     '&active': {
       color: `darkgrey !important`,
     }
+  },
+  logo: {
+    height: '50px',
+    width: 'auto',
+    marginBottom: theme.spacing(5),
   }
 });
 

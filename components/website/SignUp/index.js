@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import Router from 'next/router';
 import {
   Grid,
   Typography,
@@ -22,6 +23,12 @@ function SignUp({ classes }) {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [empty, setEmpty] = useState([false, false]);
+
+  useEffect(() => {
+    if (localStorage.getItem('session') === 'true') {
+      Router.push('/app');
+    }
+  });
 
   const onSubmit = () => {
     let error = false;
@@ -54,11 +61,15 @@ function SignUp({ classes }) {
       return;
     }
     setSubmitted(true);
+    localStorage.setItem('session', 'true');
   };
 
   return (
     <Grid container>
       <Paper className={classes.paperCard}>
+        <a href='/'>
+          <img src={'/static/images/ingrid-logo.png'} className={classes.logo} />
+        </a>
         <Grid
           container
           direction="row"
