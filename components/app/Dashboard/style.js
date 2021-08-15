@@ -1,9 +1,12 @@
 const styles = (theme) => ({
   header: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   fullScreen: {
-    padding: theme.spacing(7)
+    padding: theme.spacing(7),
+    [theme.breakpoints.down('sm')]:{
+      padding: theme.spacing(7, 1, 1, 1)
+    }
   },
   heatMap: {
     fontFamily: 'Poppins',
@@ -59,6 +62,11 @@ const styles = (theme) => ({
     color: theme.palette.common.purple,
     textTransform: 'uppercase',
   },
+  settingsButton: {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+  }
 });
 
 export default styles;

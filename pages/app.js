@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../styles/masterTheme'
-import App from '../components/app/Dashboard/index';
+import App from '../components/app/index';
 import { Container } from '@material-ui/core';
 
 export default function Home() {
