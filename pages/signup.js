@@ -1,10 +1,11 @@
-import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../styles/masterTheme'
-import App from '../components/app/index';
-import { Container } from '@material-ui/core';
 
-export default function Home() {
+import Head from 'next/head';
+import { Container } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from '../styles/masterTheme';
+import SignUp from '../components/website/SignUp';
+export default function Login() {
+
   return (
     <div>
       <Head>
@@ -16,7 +17,7 @@ export default function Home() {
       </Head>
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
-          <App />
+          <SignUp />
         </Container>
       </ThemeProvider>
     </div>

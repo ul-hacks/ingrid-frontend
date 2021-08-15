@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import Dashboard from './Dashboard';
 import ExtensionModal from './Extensions';
 
 function App ({ user }) {
   const [openModal, setOpenModal] = useState(false);
-  console.log('LOOOL', setOpenModal);
+
+  useEffect(() => {
+    if (localStorage.getItem('session') !== 'true') {
+      Router.push('/signin');
+    }
+  });
 
   return (
     <>

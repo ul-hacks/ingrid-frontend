@@ -44,9 +44,23 @@ function ExtensionCard({ classes, extension }) {
     weeklyActivity,
     totalActivity
   } = extension;
+
+  const getImage = () => {
+    if (name === 'Github') {
+      return 'github.png'
+    } else if (name === 'Gitlab') {
+      return 'gitlab.png'
+    } else {
+      return 'duolingo.png'
+    }
+  }
+
   return (
-    <Grid container className={classes.extensionCard}>
-      <Grid item xs={4}>
+    <Grid container className={classes.extensionCard} alignItems="center">
+      <Grid item xs={4} container alignItems="center">
+        <img style={{ height: '50px', boxShadow: '0px 5px 11px 0px rgba(0,0,0,0.1)', marginRight:'8px' }}
+          src={`/static/images/${getImage()}`}
+        />
         <Typography variant="subtitle1">{name}</Typography>
       </Grid>
       <Grid item xs={4}>
@@ -74,13 +88,12 @@ function Dashboard({ classes, user, setOpenModal }) {
   const {
     name,
     streak,
-    badges,
     extensions,
   } = user;
 
   return (
     <>
-      <IconButton className={classes.settingsButton} onClick={() => setOpenModal(true) }>
+      <IconButton className={classes.settingsButton} onClick={() => setOpenModal(true)}>
         <SettingsIcon />
       </IconButton>
       <Container className={classes.fullScreen} maxWidth="lg">
@@ -93,12 +106,9 @@ function Dashboard({ classes, user, setOpenModal }) {
         <Grid>
           <Paper className={classes.topBar}>
             <Grid container>
-              <Grid item xs={3} container alignItems="center">
+              <Grid item xs={6} md={3} container alignItems="center">
                 <img className={classes.fireEmoji} src={"/static/images/fire-emoji.png"} />
                 <span className={classes.boldNumber}>{streak}</span><Typography variant="body1">days</Typography>
-              </Grid>
-              <Grid item xs={3} container alignItems="center">
-                <span className={classes.boldNumber}>{badges.length}</span><Typography variant="body1">badges</Typography>
               </Grid>
             </Grid>
           </Paper>
@@ -142,8 +152,15 @@ function Dashboard({ classes, user, setOpenModal }) {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   setOpenModal: PropTypes.func.isRequired,
 }
 
+Dashboard.defaultProps = {
+  user: {
+    name: 'User',
+    streak: 0,
+    extensions: [],
+  }
+}
 export default withStyles(styles)(Dashboard);
