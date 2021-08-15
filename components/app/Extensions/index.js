@@ -22,12 +22,12 @@ import StorefrontIcon from '@material-ui/icons/Storefront';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 function ExistCard({ classes, extension, deleteMode, removeExtension }) {
-  const { name, category } = extension;
+  const { name, category, image } = extension;
   return (
     <Paper className={classes.cardPaper}>
       <Grid container alignItems="center">
         <Grid item xs={4}>
-
+          <img style={{ height: '50px', boxShadow: '0px 5px 11px 0px rgba(0,0,0,0.1)' }} src={`/static/images/${image}`} />
         </Grid>
         <Grid item xs={4}>
           <Typography variant="body1">{name}</Typography>
@@ -55,7 +55,7 @@ ExistCard.propTypes = {
 }
 
 function AddCard({ classes, extension, addExtension, setUsername, username }) {
-  const { name, category, placeholder } = extension;
+  const { name, category, placeholder, image } = extension;
   const [inputOpen, setInputOpen] = useState(false);
 
   const onSubmit = () => {
@@ -66,7 +66,7 @@ function AddCard({ classes, extension, addExtension, setUsername, username }) {
     <Paper className={classes.cardPaper}>
       <Grid container alignItems="center">
         <Grid item xs={4}>
-
+          <img style={{ height: '50px', boxShadow: '0px 5px 11px 0px rgba(0,0,0,0.1)' }} src={`/static/images/${image}`} />
         </Grid>
         <Grid item xs={4}>
           <Typography variant="body1">{name}</Typography>
@@ -82,17 +82,17 @@ function AddCard({ classes, extension, addExtension, setUsername, username }) {
           </Button>
         </Grid>
         <Grid container>
-        <Collapse in={inputOpen} style={{ width: '100%'}}>
-          <Grid container item xs={12} alignItems="center">
-            <Typography variant="subtitle1" style={{ marginTop: '16px' }}>{`${name} Username`}</Typography>
-            <Grid item xs={10}>
-              <Input style={{ width: '100%'}} alue={username} onChange={(e) => setUsername(e.target.value)} value={username} placeholder={placeholder} />
+          <Collapse in={inputOpen} style={{ width: '100%' }}>
+            <Grid container item xs={12} alignItems="center">
+              <Typography variant="subtitle1" style={{ marginTop: '16px' }}>{`${name} Username`}</Typography>
+              <Grid item xs={10}>
+                <Input style={{ width: '100%' }} alue={username} onChange={(e) => setUsername(e.target.value)} value={username} placeholder={placeholder} />
+              </Grid>
+              <Grid item xs={2}>
+                <IconButton className={classes.acceptButton}><CheckCircleIcon onClick={onSubmit} /></IconButton>
+              </Grid>
             </Grid>
-            <Grid item xs={2}>
-              <IconButton className={classes.acceptButton}><CheckCircleIcon onClick={onSubmit}/></IconButton>
-            </Grid>
-          </Grid>
-        </Collapse>
+          </Collapse>
         </Grid>
       </Grid>
     </Paper>
@@ -109,56 +109,43 @@ AddCard.propTypes = {
 
 
 function ExtensionModal({ classes, setOpenModal, openModal }) {
-  
-  const existing = [
-
-  ]
-  const add = [
-    {
-      name: 'Duolingo',
-      category: 'tech',
-      placeholder: 'username@password',
-    },
-    {
-      name: 'Github',
-      category: 'tech',
-      placeholder: 'username',
-    },
-    {
-      name: 'Gitlab',
-      category: 'tech',
-      placeholder: 'username',
-    },
-  ]
-
-  const [deleteMode, setDeleteMode] = useState(false);
-  const [existingExtensions, setExistingExtensions] = useState(existing);
-  const [shopExtensions, setShopExtensions] = useState(add);
-  const [usernames, setUsernames] = useState({Duolingo: '', Github: '', Gitlab: ''});
-
-  const saveUsername = (name, e) => {
-    const newUsernames = {...usernames};
-    newUsernames[name] = e;
-    setUsernames(newUsernames);
-  }
-
   const ALL_EXTENSIONS = [
     {
       name: 'Duolingo',
       category: 'tech',
       placeholder: 'username@password',
+      image: 'duolingo.png'
     },
     {
       name: 'Github',
       category: 'tech',
       placeholder: 'username',
+      image: 'github.png'
     },
     {
       name: 'Gitlab',
       category: 'tech',
       placeholder: 'username',
+      image: 'gitlab.png'
     },
   ];
+
+  const existing = [
+
+  ]
+  const add = ALL_EXTENSIONS.filter(el => existing.every(el2 => el2.name !== el1.name)); // doesnt matter content of object as long as name matches
+
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [existingExtensions, setExistingExtensions] = useState(existing);
+  const [shopExtensions, setShopExtensions] = useState(add);
+  const [usernames, setUsernames] = useState({ Duolingo: '', Github: '', Gitlab: '' });
+
+  const saveUsername = (name, e) => {
+    const newUsernames = { ...usernames };
+    newUsernames[name] = e;
+    setUsernames(newUsernames);
+  }
+
 
   const onClose = () => {
     /***
@@ -218,9 +205,9 @@ function ExtensionModal({ classes, setOpenModal, openModal }) {
                 </Grid>
                 <div className={classes.greyDiv}>
                   {shopExtensions.map((extension) => (
-                    <AddCard extension={extension} classes={classes} addExtension={() => addExtension(extension)} 
-                    username={usernames[extension.name]} 
-                    setUsername={(e) => saveUsername(extension.name, e)}
+                    <AddCard extension={extension} classes={classes} addExtension={() => addExtension(extension)}
+                      username={usernames[extension.name]}
+                      setUsername={(e) => saveUsername(extension.name, e)}
                     />
                   ))}
                 </div>

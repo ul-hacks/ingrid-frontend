@@ -44,9 +44,23 @@ function ExtensionCard({ classes, extension }) {
     weeklyActivity,
     totalActivity
   } = extension;
+
+  const getImage = () => {
+    if (name === 'Github') {
+      return 'github.png'
+    } else if (name === 'Gitlab') {
+      return 'gitlab.png'
+    } else {
+      return 'duolingo.png'
+    }
+  }
+
   return (
-    <Grid container className={classes.extensionCard}>
-      <Grid item xs={4}>
+    <Grid container className={classes.extensionCard} alignItems="center">
+      <Grid item xs={4} container alignItems="center">
+        <img style={{ height: '50px', boxShadow: '0px 5px 11px 0px rgba(0,0,0,0.1)', marginRight:'8px' }}
+          src={`/static/images/${getImage()}`}
+        />
         <Typography variant="subtitle1">{name}</Typography>
       </Grid>
       <Grid item xs={4}>
@@ -79,7 +93,7 @@ function Dashboard({ classes, user, setOpenModal }) {
 
   return (
     <>
-      <IconButton className={classes.settingsButton} onClick={() => setOpenModal(true) }>
+      <IconButton className={classes.settingsButton} onClick={() => setOpenModal(true)}>
         <SettingsIcon />
       </IconButton>
       <Container className={classes.fullScreen} maxWidth="lg">
