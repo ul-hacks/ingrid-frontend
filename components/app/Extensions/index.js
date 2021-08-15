@@ -5,11 +5,13 @@ import {
   Typography,
   Grid,
   Paper,
-  Container
+  Container,
+  Button,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './style';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 function ExistCard({ classes, extension }) {
   const { name, category } = extension;
@@ -33,10 +35,28 @@ ExistCard.propTypes = {
 }
 
 function AddCard({ classes, extension }) {
+  const { name, category } = extension;
+
   return (
-    <div>
-      hi
-    </div>
+    <Paper className={classes.cardPaper}>
+      <Grid container alignItems="center">
+        <Grid item xs={4}>
+
+        </Grid>
+        <Grid item xs={4}>
+          <Typography variant="body1">{name}</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Button
+            variant="text"
+            className={classes.button}
+            startIcon={<AddCircleIcon />}
+          >
+            Connect
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
   )
 }
 
@@ -76,7 +96,9 @@ function ExtensionModal({ classes, setOpenModal, openModal }) {
                 ))}
               </Grid>
               <Grid item xs={8} className={classes.greyDiv}>
-
+                {add.map((extension) => (
+                  <AddCard extension={extension} classes={classes} />
+                ))}
               </Grid>
             </Grid>
           </Container>
