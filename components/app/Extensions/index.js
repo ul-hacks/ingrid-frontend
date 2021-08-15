@@ -8,7 +8,9 @@ import {
   Paper,
   Container,
   Button,
-  Slide
+  Slide,
+  Collapse,
+  Input,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,6 +19,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 function ExistCard({ classes, extension, deleteMode, removeExtension }) {
   const { name, category } = extension;
@@ -51,8 +54,13 @@ ExistCard.propTypes = {
   removeExtension: PropTypes.func.isRequired,
 }
 
-function AddCard({ classes, extension, addExtension }) {
-  const { name, category } = extension;
+function AddCard({ classes, extension, addExtension, setUsername, username }) {
+  const { name, category, placeholder } = extension;
+  const [inputOpen, setInputOpen] = useState(false);
+
+  const onSubmit = () => {
+    addExtension();
+  }
 
   return (
     <Paper className={classes.cardPaper}>
@@ -68,10 +76,23 @@ function AddCard({ classes, extension, addExtension }) {
             variant="text"
             className={classes.addButton}
             startIcon={<AddCircleIcon />}
-            onClick={addExtension}
+            onClick={() => setInputOpen(prev => !prev)}
           >
             Connect
           </Button>
+        </Grid>
+        <Grid container>
+        <Collapse in={inputOpen} style={{ width: '100%'}}>
+          <Grid container item xs={12} alignItems="center">
+            <Typography variant="subtitle1" style={{ marginTop: '16px' }}>{`${name} Username`}</Typography>
+            <Grid item xs={10}>
+              <Input style={{ width: '100%'}} alue={username} onChange={(e) => setUsername(e.target.value)} value={username} placeholder={placeholder} />
+            </Grid>
+            <Grid item xs={2}>
+              <IconButton className={classes.acceptButton}><CheckCircleIcon onClick={onSubmit}/></IconButton>
+            </Grid>
+          </Grid>
+        </Collapse>
         </Grid>
       </Grid>
     </Paper>
@@ -82,38 +103,71 @@ AddCard.propTypes = {
   classes: PropTypes.object.isRequired,
   extension: PropTypes.object.isRequired,
   addExtension: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  setUsername: PropTypes.func.isRequired
 }
 
 
 function ExtensionModal({ classes, setOpenModal, openModal }) {
+  
   const existing = [
-    {
-      name: 'Github',
-      category: 'tech',
-    },
+
   ]
   const add = [
     {
-      name: 'Scratch',
+      name: 'Duolingo',
       category: 'tech',
+      placeholder: 'username@password',
+    },
+    {
+      name: 'Github',
+      category: 'tech',
+      placeholder: 'username',
+    },
+    {
+      name: 'Gitlab',
+      category: 'tech',
+      placeholder: 'username',
     },
   ]
-
-
-  const ALL_EXTENSIONS = [
-    {
-      name: 'Github',
-      category: 'tech',
-    },
-    {
-      name: 'Github',
-      category: 'tech',
-    },
-  ];
 
   const [deleteMode, setDeleteMode] = useState(false);
   const [existingExtensions, setExistingExtensions] = useState(existing);
   const [shopExtensions, setShopExtensions] = useState(add);
+  const [usernames, setUsernames] = useState({Duolingo: '', Github: '', Gitlab: ''});
+
+  const saveUsername = (name, e) => {
+    const newUsernames = {...usernames};
+    newUsernames[name] = e;
+    setUsernames(newUsernames);
+  }
+
+  const ALL_EXTENSIONS = [
+    {
+      name: 'Duolingo',
+      category: 'tech',
+      placeholder: 'username@password',
+    },
+    {
+      name: 'Github',
+      category: 'tech',
+      placeholder: 'username',
+    },
+    {
+      name: 'Gitlab',
+      category: 'tech',
+      placeholder: 'username',
+    },
+  ];
+
+  const onClose = () => {
+    /***
+     * SAVE DATA HERE, usersnames['Duolingo'] = duolingo, usersnames['Github'] = github etc.
+     * Added extensions = existingExtensions
+     */
+    setOpenModal(false);
+  }
+
 
   const removeExtension = (extension) => {
     let newExisting = [...existingExtensions];
@@ -134,7 +188,7 @@ function ExtensionModal({ classes, setOpenModal, openModal }) {
       <Slide in={openModal} direction="down">
         <div className={classes.whiteBg}>
           <IconButton className={classes.closeButton}>
-            <CloseIcon onClick={() => setOpenModal(false)} />
+            <CloseIcon onClick={onClose} />
           </IconButton>
           <Container maxWidth="lg" className={classes.fullScreen}>
             <Grid container>
@@ -147,11 +201,11 @@ function ExtensionModal({ classes, setOpenModal, openModal }) {
                 </Grid>
                 <div className={classes.greyDiv}>
                   {existingExtensions.map((extension) => (
-                    <ExistCard 
-                    extension={extension}
-                    classes={classes}
-                    deleteMode={deleteMode}
-                    removeExtension={() => removeExtension(extension)} />
+                    <ExistCard
+                      extension={extension}
+                      classes={classes}
+                      deleteMode={deleteMode}
+                      removeExtension={() => removeExtension(extension)} />
                   ))}
                 </div>
               </Grid>
@@ -164,7 +218,10 @@ function ExtensionModal({ classes, setOpenModal, openModal }) {
                 </Grid>
                 <div className={classes.greyDiv}>
                   {shopExtensions.map((extension) => (
-                    <AddCard extension={extension} classes={classes} addExtension={() => addExtension(extension)}/>
+                    <AddCard extension={extension} classes={classes} addExtension={() => addExtension(extension)} 
+                    username={usernames[extension.name]} 
+                    setUsername={(e) => saveUsername(extension.name, e)}
+                    />
                   ))}
                 </div>
 

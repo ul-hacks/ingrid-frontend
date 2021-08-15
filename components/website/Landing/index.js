@@ -20,7 +20,7 @@ function Landing({ classes }) {
       text: 'Easily customizable to suit your needs. We offer variety of extensions to track the data you want.'
     },
     {
-      text: 'Cool badges and streaks to motivate yourself to keep going'
+      text: 'Streaks & easy visualizers to motivate yourself to keep going'
     },
   ];
 

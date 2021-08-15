@@ -45,6 +45,15 @@ const styles = (theme) => ({
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(7, 1, 1, 1),
     }
+  },
+  acceptButton: {
+    background: theme.palette.success.dark,
+    color:'white',
+    borderRadius: '5px',
+    padding: '3px !important',
+    '&:hover': {
+      background: theme.palette.success.dark,
+    }
   }
 });
 
