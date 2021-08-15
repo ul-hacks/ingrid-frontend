@@ -20,7 +20,7 @@ const styles = (theme) => ({
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       minHeight: 0,
-      maxHeight: '20vh',
+      height: '30vh',
     }
   },
   cardPaper: {
