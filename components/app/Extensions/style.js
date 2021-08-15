@@ -15,6 +15,14 @@ const styles = (theme) => ({
     position: 'absolute',
     top: '10px',
     right: '10px',
+  },
+  greyDiv: {
+    backgroundColor: '#F8F9FB',
+    minHeight: '600px',
+    padding: theme.spacing(3),
+  },
+  cardPaper: {
+    padding: theme.spacing(3),
   }
 });
 
