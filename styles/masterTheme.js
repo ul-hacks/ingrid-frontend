@@ -42,6 +42,10 @@ const theme = createTheme({
       fontSize: '16px'
     }
   },
+  shadows: [
+    'none',
+    "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)"
+  ],
   overrides: {
     MuiInput: {
       root: {
@@ -80,7 +84,12 @@ const theme = createTheme({
         transition: '0.1s ease-in',
         '&:hover': {
           background: '#7de0ff !important',
+          boxShadow: 'none',
         },
+        '&:active': {
+          boxShadow: '0px 5px 15px 0px rgba(0,134,255,0.15)',
+          backgroundColor: '#3bd0ff !important'
+        }
       },
       outlined: {
         border: '2px solid grey',

@@ -1,16 +1,19 @@
 const styles = (theme) => ({
   paperCard: {
-    height: '500px',
+    minHeight: '400px',
     width: '400px',
     padding: theme.spacing(5),
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform:' translate(-50%,-50%)'
+    transform:' translate(-50%,-50%)',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+    }
   },
   input: {
     padding: theme.spacing(1),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
     '&:hover': {
       backgroundColor: theme.palette.grey.light
     },
@@ -23,20 +26,9 @@ const styles = (theme) => ({
     color: theme.palette.grey.light,
     height:'100%'
   },
-  signUpButton: {
-    background: theme.palette.common.yellow,
-    color: 'black',
-    border: '5px solid black',
-    padding: theme.spacing(1, 3),
-    fontFamily: 'Poppins',
-    textTransform: 'capitalize',
-    fontSize: '24px',
-    borderRadius: '12px',
-    transition: '0.1s ease-in',
-    '&:hover': {
-      background: '#7de0ff',
-      
-    }
+  button: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   divider: {
     marginBottom: theme.spacing(4)
