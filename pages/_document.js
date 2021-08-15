@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles'; // works with @material-ui/core/styles, if you prefer to use it.
 
@@ -7,6 +8,23 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en" style={{ margin: 0}}>
         <Head>
+          <title>Ingrid</title>
+          <link rel="icon" href="/favicon.png" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+          <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=no"/>
+          <meta name="theme-color" content="#03fce3" />
+
+          <meta property="og:site_name" content="ingrid.study" />
+          <meta property="og:title" content="Ingrid - A new way to track online education" />
+          <meta property="og:type" content="website" />
+          <meta property="og:description" content="Ingrid is an innovative solution to loss of motivation and passion in learning. We provide a clean and intuitive interface to track learning progress, along with milestones and streaks for students to set personal goals." />
+          <meta property="og:image" content="/static/images/ingrid-banner.gif" />
+          <meta name="twitter:card" content="summary_large_image"/>
+          <meta name="twitter:site" content="@discord"/>
+          <meta name="twitter:creator" content="@discord"/>
         </Head>
         <body style={{ margin: 0, backgroundColor: '#F8F9FB'}}>
           <Main />
