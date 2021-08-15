@@ -13,7 +13,7 @@ const theme = createTheme({
     },
     common: {
       pink: '#FF6DAB',
-      yellow:'#FFD84F',
+      yellow: '#FFD84F',
       orange: '#FFA26D',
       blue: '#5BE2FF',
       orchid: '#DD7BFF',
@@ -42,6 +42,32 @@ const theme = createTheme({
       fontSize: '16px'
     }
   },
+  overrides: {
+    MuiInput: {
+      root: {
+        transition: '0.1s ease-in',
+        backgroundColor: '#fafafa',
+        borderRadius: '10px 10px 0 0',
+        backgroundColor: '#f2fdff',
+      },
+      underline: {
+        '&:before': {
+          borderBottom: '1px solid rgba(91, 225, 255, 0.7) !important'
+        },
+        '&:after': {
+          borderBottom: `2px solid #5BE2FF`
+        },
+        '&:hover:not($disabled):not($focused):not($error):before': {
+          borderBottom: `2px solid #5BE2FF`
+        }
+      }
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: '10px'
+      }
+    }
+  }
 });
 
 export default theme;

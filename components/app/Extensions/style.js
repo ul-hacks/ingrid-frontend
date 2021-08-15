@@ -16,15 +16,16 @@ const styles = (theme) => ({
   greyDiv: {
     backgroundColor: '#F8F9FB',
     minHeight: '600px',
+    overflow: 'scroll',
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       minHeight: 0,
       maxHeight: '20vh',
-      overflow: 'scroll',
     }
   },
   cardPaper: {
     padding: theme.spacing(3),
+    marginBottom: theme.spacing(1)
   },
   greyContainer: {
     padding: theme.spacing(3),
@@ -33,8 +34,11 @@ const styles = (theme) => ({
   storeIcon: {
     color: `${theme.palette.common.black} !important`,
   },
-  button: {
-
+  removeButton: {
+    color: theme.palette.error.main
+  },
+  addButton: {
+    color: theme.palette.success.dark
   },
   fullScreen: {
     padding: theme.spacing(7),
