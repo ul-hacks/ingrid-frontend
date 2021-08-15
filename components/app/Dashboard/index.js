@@ -14,6 +14,8 @@ import styles from './style';
 import HeatMap from 'react-heatmap-grid';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import { getExtensions } from '../../../services/api.service';
+
 function ExtensionHeatMap({ classes }) {
   const xLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
   const yLabels = new Array(4).fill(0).map((_, i) => `${i}`);;
@@ -90,6 +92,11 @@ function Dashboard({ classes, user, setOpenModal }) {
     streak,
     extensions,
   } = user;
+
+  const testapi = async () => {
+    const res = await getExtensions('pinosaura');
+    console.log(res);
+  }
 
   return (
     <>
