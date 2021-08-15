@@ -9,9 +9,9 @@ export const registerUser = async (username, password) => {
       }
   `})
 
-  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' }})
-  .then(res = res.json())
-  .catch(err => err);
+  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' } })
+    .then(res => res.json())
+    .catch(err => err);
 }
 
 export const loginUser = async (username, password) => {
@@ -22,12 +22,12 @@ export const loginUser = async (username, password) => {
       }
   `})
 
-  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' }})
-  .then(res = res.json())
-  .catch(err => err);
+  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' } })
+    .then(res => res.json())
+    .catch(err => err);
 }
 
-export const getExtensions = async (username) => {
+export const getHeatMaps = async (username) => {
   const query = JSON.stringify({
     query: `
       query Query {
@@ -43,22 +43,45 @@ export const getExtensions = async (username) => {
       }
   `});
 
-  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' }})
-  .then(res => res.json())
-  .catch(err => err);
+  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' } })
+    .then(res => res.json())
+    .catch(err => err);
 }
 
-export const setExtensions = async (extensionList) => {
 
+export const getMyHeatMaps = async () => {
   const query = JSON.stringify({
     query: `
-      mutation Mutation {
-        updateUserExtensions(extensionList: [${extensionList}])
+      query Query {
+        getUserProfile {
+          heatmaps {
+            provider,
+            heatmapItems {
+              date,
+              weight
+            }
+          }
+        }
       }
   `});
 
-  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' }})
-  .then(res => res.json())
-  .catch(err => err);
+  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' } })
+    .then(res => res.json())
+    .catch(err => err);
+}
+
+export const setExtensions = async (extensionList) => {
+  const JSONextensionList = JSON.stringify(extensionList)
+  console.log(extensionList);
+  const query = JSON.stringify({
+    query: `
+      mutation Mutation {
+        updateUserExtensions(extensionList: ${JSONextensionList})
+      }
+  `});
+  console.log(query);
+  return fetch(API_URL, { method: 'POST', body: query, headers: { 'Content-Type': 'application/json' } })
+    .then(res => res.json())
+    .catch(err => err);
 }
 

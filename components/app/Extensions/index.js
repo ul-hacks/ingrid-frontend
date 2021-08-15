@@ -21,6 +21,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
+
+import { setExtensions } from '../../../services/api.service';
+
 function ExistCard({ classes, extension, deleteMode, removeExtension }) {
   const { name, category, image } = extension;
   return (
@@ -108,37 +111,50 @@ AddCard.propTypes = {
 }
 
 
-function ExtensionModal({ classes, setOpenModal, openModal }) {
+function ExtensionModal({ classes, setOpenModal, openModal, setUser, user }) {
+
+  const existing = [
+
+  ]
+  const [usernames, setUsernames] = useState({ Duolingo: '', Github: '', Gitlab: '' });
+
   const ALL_EXTENSIONS = [
     {
       name: 'Duolingo',
       category: 'tech',
       placeholder: 'username@password',
-      image: 'duolingo.png'
+      image: 'duolingo.png',
+      accounts: usernames.Duolingo.map,
+      provider: 'duolingo',
+      weeklyActivity: 0,
+      totalActivity: 12
     },
     {
       name: 'Github',
       category: 'tech',
       placeholder: 'username',
-      image: 'github.png'
+      image: 'github.png',
+      accounts: usernames.Github,
+      provider: 'github',
+      weeklyActivity: 2,
+      totalActivity: 62
     },
     {
       name: 'Gitlab',
       category: 'tech',
-      placeholder: 'username',
-      image: 'gitlab.png'
+      placeholder: 'username@name',
+      image: 'gitlab.png',
+      accounts: usernames.Gitlab,
+      provider: 'gitlab',
+      weeklyActivity: 0,
+      totalActivity: 0
     },
   ];
-
-  const existing = [
-
-  ]
   const add = ALL_EXTENSIONS.filter(el => existing.every(el2 => el2.name !== el1.name)); // doesnt matter content of object as long as name matches
 
   const [deleteMode, setDeleteMode] = useState(false);
   const [existingExtensions, setExistingExtensions] = useState(existing);
   const [shopExtensions, setShopExtensions] = useState(add);
-  const [usernames, setUsernames] = useState({ Duolingo: '', Github: '', Gitlab: '' });
 
   const saveUsername = (name, e) => {
     const newUsernames = { ...usernames };
@@ -146,12 +162,12 @@ function ExtensionModal({ classes, setOpenModal, openModal }) {
     setUsernames(newUsernames);
   }
 
-
   const onClose = () => {
-    /***
-     * SAVE DATA HERE, usersnames['Duolingo'] = duolingo, usersnames['Github'] = github etc.
-     * Added extensions = existingExtensions
-     */
+    const list = existingExtensions.map((ext) => { return { provider: ext.provider, account: ext.accounts};})
+    localStorage.setItem('extensions', existingExtensions);
+    const newUser = {...user}
+    newUser.extensions =existingExtensions;
+    setUser(newUser);
     setOpenModal(false);
   }
 

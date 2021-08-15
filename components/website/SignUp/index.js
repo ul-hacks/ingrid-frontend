@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../SignIn/style";
+import { registerUser } from '../../../services/api.service';
 
 function SignUp({ classes }) {
   const [username, setUsername] = useState("");
@@ -60,8 +61,10 @@ function SignUp({ classes }) {
       setSubmitted(false);
       return;
     }
+    const res = registerUser(username, password);
     setSubmitted(true);
     localStorage.setItem('session', 'true');
+    localStorage.setItem('username', username);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
@@ -14,23 +14,23 @@ import styles from './style';
 import HeatMap from 'react-heatmap-grid';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { getExtensions } from '../../../services/api.service';
+import { getHeatMaps } from '../../../services/api.service';
 
 function ExtensionHeatMap({ classes }) {
   const xLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat']
-  const yLabels = new Array(4).fill(0).map((_, i) => `${i}`);;
+  const yLabels = new Array(4).fill(0).map((_, i) => `${i + 1}`);;
+
   const data = new Array(yLabels.length)
     .fill(0)
     .map(() => new Array(xLabels.length).fill(0).map(() => Math.floor(Math.random() * 100)));
 
-  console.log(data);
   return (
     <Grid className={classes.heatMap} item xs={12} md={6}>
       <HeatMap
         xLabels={xLabels}
         yLabels={yLabels}
         data={data}
-        cellStyle={(background, value, min, max, data, x, y) => ({ background: `rgba(128, 232, 111, ${1 - (max - value) / (max - min)})`, borderRadius: '5px', margin: '2px', width: '30px', height: '30px' })}
+        cellStyle={(background, value, min, max, data, x, y) => ({ background: `rgba(128, 232, 111, ${0.5 - (max - value) / (max - min)})`, borderRadius: '5px', margin: '2px', width: '30px', height: '30px' })}
       />
     </Grid>
   );
@@ -60,7 +60,7 @@ function ExtensionCard({ classes, extension }) {
   return (
     <Grid container className={classes.extensionCard} alignItems="center">
       <Grid item xs={4} container alignItems="center">
-        <img style={{ height: '50px', boxShadow: '0px 5px 11px 0px rgba(0,0,0,0.1)', marginRight:'8px' }}
+        <img style={{ height: '50px', boxShadow: '0px 5px 11px 0px rgba(0,0,0,0.1)', marginRight: '8px' }}
           src={`/static/images/${getImage()}`}
         />
         <Typography variant="subtitle1">{name}</Typography>
@@ -86,17 +86,20 @@ Dashboard.propTypes = {
   extension: PropTypes.object.isRequired,
 }
 
-function Dashboard({ classes, user, setOpenModal }) {
+function Dashboard({ classes, user, setOpenModal, setUser }) {
   const {
     name,
     streak,
     extensions,
   } = user;
 
-  const testapi = async () => {
-    const res = await getExtensions('pinosaura');
-    console.log(res);
-  }
+  const [heatMaps, setHeatMaps] = useState([]);
+
+
+  useEffect(() => {
+
+  });
+
 
   return (
     <>
@@ -145,8 +148,10 @@ function Dashboard({ classes, user, setOpenModal }) {
             <Grid item xs={12} md={6}>
               <Paper className={classes.mapPaper}>
                 <Grid container className={classes.mapContainer}>
-                  <ExtensionHeatMap classes={classes} />
-                  <ExtensionHeatMap classes={classes} />
+                  {extensions.map(() => (
+                    <ExtensionHeatMap classes={classes} />
+                  )
+                  )}
                 </Grid>
               </Paper>
             </Grid>

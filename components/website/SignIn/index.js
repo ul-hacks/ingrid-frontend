@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./style";
+import { loginUser } from '../../../services/api.service';
 
 function SignIn({ classes }) {
   const [username, setUsername] = useState("");
@@ -28,7 +29,7 @@ function SignIn({ classes }) {
     }
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     let error = false;
     const newEmpty = [...empty];
     if (username === "") {
@@ -49,9 +50,16 @@ function SignIn({ classes }) {
       setSubmitted(false);
       return;
     }
-
-    setSubmitted(true);
-    localStorage.setItem('session', 'true');
+    console.log('dhdhdh')
+    const res = await loginUser(username, password);
+    if (res.data.loginUser === 'OK') {
+      setSubmitted(true);
+      localStorage.setItem('session', 'true');
+      localStorage.setItem('username', username);
+      Router.push('/app');
+      return;
+    }
+    setSubmitted(false);
   };
 
   return (
