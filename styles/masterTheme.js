@@ -66,6 +66,33 @@ const theme = createTheme({
       rounded: {
         borderRadius: '10px'
       }
+    },
+    MuiButton: {
+      contained: {
+        background: '#FFD84F !important',
+        color: 'black',
+        border: '5px solid black',
+        padding: '8px 24px',
+        fontFamily: 'Poppins',
+        textTransform: 'capitalize',
+        fontSize: '24px',
+        borderRadius: '12px',
+        transition: '0.1s ease-in',
+        '&:hover': {
+          background: '#7de0ff !important',
+        },
+      },
+      outlined: {
+        border: '2px solid grey',
+        borderRadius: '12px',
+        padding: '8px 24px',
+        padding: '8px 24px',
+        fontFamily: 'Poppins',
+        textTransform: 'capitalize',
+        fontSize: '24px',
+        color: 'grey',
+        fontWeight: 400,
+      }
     }
   }
 });

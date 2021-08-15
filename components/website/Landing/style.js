@@ -7,8 +7,8 @@ const styles = (theme) => ({
     boxSizing: 'border-box',
     objectFit: 'contain'
   },
-  fullScreen: {
-    
+  no_u: {
+    textDecoration: 'none !important'
   }
 });
 

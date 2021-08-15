@@ -13,7 +13,7 @@ import {
   FormHelperText
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './style';
+import styles from '../SignIn/style';
 
 function SignUp({ classes }) {
   const [username, setUsername] = useState('');
@@ -65,7 +65,10 @@ function SignUp({ classes }) {
                 {!passwordMatch && <FormHelperText style={{ marginTop: '0' }}>Passwords don't Match</FormHelperText>}
             </FormControl>
           </Grid>
-          <Button className={classes.signUpButton} onClick={onSubmit}>Sign Up</Button>
+          <Button variant="contained" onClick={onSubmit} disableRipple>Sign Up</Button>
+          <Grid item xs={12} container justifyContent="center">
+            <Typography variant="body1"><a className={classes.link} href='/signin'>Sign In</a></Typography>
+          </Grid>
         </Grid>
       </Paper>
     </Grid>

@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import {
   Grid,
   Typography,
-  Container
+  Container,
+  Button
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './style';
@@ -38,6 +39,10 @@ function Landing({ classes }) {
             <Typography variant="body1">• {point.text}</Typography>
           </Grid>
         ))}
+        <Grid container alignItems="center" style={{ marginTop: '24px'}}>
+          <a href='/signup' className={classes.no_u} style={{ marginRight: '24px'}}><Button variant="contained" disableRipple>Sign Up</Button></a>
+          <a href='/signin' className={classes.no_u}><Button variant="outlined" disableRipple>Sign In</Button></a>
+        </Grid>
       </Grid>
     </Grid>
   )
